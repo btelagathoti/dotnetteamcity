@@ -14,6 +14,10 @@ if (app.Environment.IsDevelopment())
 app.UseSwagger();
 app.UseSwaggerUI();
 
+// Serve static files (wwwroot) and default files like index.html
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapGet("/todos", (TodoService s) => Results.Ok(s.GetAll()));
 app.MapGet("/todos/{id:int}", (int id, TodoService s) =>
 {
@@ -26,5 +30,8 @@ app.MapPost("/todos", (TodoItem item, TodoService s) =>
     return Results.Created($"/todos/{added.Id}", added);
 });
 app.MapDelete("/todos/{id:int}", (int id, TodoService s) => s.Remove(id) ? Results.NoContent() : Results.NotFound());
+
+// Fallback to index.html for SPA-like behavior
+app.MapFallbackToFile("/", "index.html");
 
 app.Run();

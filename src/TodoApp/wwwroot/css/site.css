@@ -1,0 +1,48 @@
+:root{
+  --bg: #ffffff;
+  --fg: #111827;
+  --header-bg: #f3f4f6;
+}
+
+[data-theme="dark"]{
+  --bg: #0b1220;
+  --fg: #e6eef8;
+  --header-bg: #071021;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Segoe UI, Roboto, Arial, sans-serif;
+  background-color:var(--bg);
+  color:var(--fg);
+  min-height:100vh;
+}
+
+.container{
+  max-width:900px;
+  margin:0 auto;
+  padding:1rem;
+}
+
+header{
+  background:var(--header-bg);
+  padding:0.5rem 0;
+  border-bottom:1px solid rgba(0,0,0,0.06);
+}
+
+header .container{display:flex;align-items:center;justify-content:space-between}
+
+#themeToggle{
+  background:transparent;
+  border:1px solid rgba(0,0,0,0.08);
+  padding:0.4rem 0.6rem;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+[data-theme="dark"] #themeToggle{
+  border-color:rgba(255,255,255,0.08);
+}
+
+main{padding:2rem 0}
