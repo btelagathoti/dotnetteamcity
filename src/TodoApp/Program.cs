@@ -33,5 +33,5 @@ app.MapDelete("/todos/{id:int}", (int id, TodoService s) => s.Remove(id) ? Resul
 
 // Fallback to index.html for SPA-like behavior
 app.MapFallbackToFile("/", "index.html");
-
+app.MapGet("/", () => "Deployed via TeamCity 🚀");
 app.Run();
