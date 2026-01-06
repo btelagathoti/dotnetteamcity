@@ -1,12 +1,19 @@
-# 1. Base image (ASP.NET runtime)
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+COPY *.csproj ./
+RUN dotnet restore
+
+COPY . .
+RUN dotnet publish -c Release -o /app/publish
+
+# RUNTIME STAGE
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
-# 2. Copy published output
-COPY out/ ./
+COPY --from=build /app/publish .
 
-# 3. Expose port
 EXPOSE 5000
+ENV ASPNETCORE_URLS=http://0.0.0.0:5000
 
-# 4. Run the app
 ENTRYPOINT ["dotnet", "TodoApp.dll"]
